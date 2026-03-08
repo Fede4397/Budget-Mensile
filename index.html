@@ -40,8 +40,6 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
-
-/* TOPBAR */
 .topbar {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -70,13 +68,9 @@ body {
 }
 .tab-btn:hover { background: var(--bg); color: var(--ink-2); }
 .tab-btn.active { background: var(--ink); color: #fff; }
-
-/* LAYOUT */
 .page { display: none; padding: 28px; max-width: 1100px; margin: 0 auto; animation: fadeIn 0.2s ease; }
 .page.active { display: block; }
 @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:translateY(0) } }
-
-/* SUMMARY BAR */
 .summary-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
 .summary-card {
   background: var(--surface); border: 1px solid var(--border);
@@ -89,8 +83,6 @@ body {
 .highlight .s-value { color: #fff; }
 .s-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
 .highlight .s-sub { color: rgba(255,255,255,0.4); }
-
-/* TWO COLUMNS */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .col-card {
   background: var(--surface); border: 1px solid var(--border);
@@ -107,15 +99,12 @@ body {
 .col-total-item { text-align: right; }
 .col-total-item .tl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 .col-total-item .tv { font-size: 14px; font-weight: 600; letter-spacing: -0.3px; }
-
-/* TABLE */
 .tbl-head {
   display: grid; grid-template-columns: 1fr 88px 88px 80px;
   padding: 8px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
 }
 .tbl-head span { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
 .tbl-head span:not(:first-child) { text-align: right; }
-
 .cat-block { border-bottom: 1px solid var(--border); }
 .cat-block:last-child { border-bottom: none; }
 .cat-label-row {
@@ -124,7 +113,6 @@ body {
 }
 .cat-label { font-size: 11px; font-weight: 600; color: var(--muted-light); text-transform: uppercase; letter-spacing: 0.8px; }
 .cat-label-row span:not(:first-child) { font-size: 12px; font-weight: 500; color: var(--ink-2); text-align: right; }
-
 .line {
   display: grid; grid-template-columns: 1fr 88px 88px 80px;
   padding: 10px 20px 10px 28px; border-bottom: 1px solid var(--border);
@@ -135,14 +123,11 @@ body {
 .line-name { font-size: 13px; color: var(--ink-2); }
 .line-num { font-size: 13px; text-align: right; color: var(--muted); }
 .line-actual { font-size: 13px; text-align: right; font-weight: 500; color: var(--ink); }
-
-.delta { font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: var(--radius-sm); text-align: center; letter-spacing: -0.1px; }
+.delta { font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: var(--radius-sm); text-align: center; }
 .d-good { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
 .d-bad  { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
 .d-warn { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
 .d-zero { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
-
-/* PLAN */
 .plan-intro { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
 .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .plan-card {
@@ -198,8 +183,6 @@ body {
   cursor: pointer; transition: opacity 0.15s; white-space: nowrap;
 }
 .btn-add:hover { opacity: 0.8; }
-
-/* LOG */
 .log-form {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-lg); padding: 20px;
@@ -241,7 +224,6 @@ body {
 .tp-income  { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
 .tp-expense { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
 .empty-state { padding: 40px; text-align: center; font-size: 13px; color: var(--muted); }
-
 .toast {
   position: fixed; bottom: 24px; right: 24px;
   background: var(--ink); color: #fff; padding: 10px 18px;
@@ -251,7 +233,6 @@ body {
   transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); z-index: 999;
 }
 .toast.show { transform: translateY(0); opacity: 1; }
-
 @media (max-width: 780px) {
   .page { padding: 16px; }
   .two-col, .plan-grid { grid-template-columns: 1fr; }
@@ -261,13 +242,12 @@ body {
 </style>
 </head>
 <body>
-
 <div class="topbar">
   <div class="logo">Budget <span>Tracker</span></div>
   <div class="month-nav">
-    <button onclick="changeMonth(-1)">‹</button>
+    <button onclick="changeMonth(-1)">&#8249;</button>
     <div class="month-label" id="monthLabel"></div>
-    <button onclick="changeMonth(1)">›</button>
+    <button onclick="changeMonth(1)">&#8250;</button>
   </div>
   <div class="tab-nav">
     <button class="tab-btn active" onclick="showTab('dashboard',this)">Overview</button>
@@ -275,28 +255,26 @@ body {
     <button class="tab-btn" onclick="showTab('log',this)">Log</button>
   </div>
 </div>
-
-<!-- OVERVIEW -->
 <div class="page active" id="tab-dashboard">
   <div class="summary-bar">
     <div class="summary-card highlight">
       <div class="s-label">Net Balance</div>
-      <div class="s-value" id="s-net">€0</div>
-      <div class="s-sub" id="s-net-sub">vs. planned €0</div>
+      <div class="s-value" id="s-net">0</div>
+      <div class="s-sub" id="s-net-sub">vs. planned 0</div>
     </div>
     <div class="summary-card">
       <div class="s-label">Total Income</div>
-      <div class="s-value" id="s-income">€0</div>
-      <div class="s-sub" id="s-income-sub">planned €0</div>
+      <div class="s-value" id="s-income">0</div>
+      <div class="s-sub" id="s-income-sub">planned 0</div>
     </div>
     <div class="summary-card">
       <div class="s-label">Total Expenses</div>
-      <div class="s-value" id="s-expenses">€0</div>
-      <div class="s-sub" id="s-expenses-sub">planned €0</div>
+      <div class="s-value" id="s-expenses">0</div>
+      <div class="s-sub" id="s-expenses-sub">planned 0</div>
     </div>
     <div class="summary-card">
       <div class="s-label">Remaining Budget</div>
-      <div class="s-value" id="s-remaining">€0</div>
+      <div class="s-value" id="s-remaining">0</div>
       <div class="s-sub" id="s-remaining-sub">of planned expenses</div>
     </div>
   </div>
@@ -305,12 +283,12 @@ body {
       <div class="col-head">
         <div class="col-head-title income">Income</div>
         <div class="col-totals">
-          <div class="col-total-item"><div class="tl">Planned</div><div class="tv" id="ch-inc-planned">€0</div></div>
-          <div class="col-total-item"><div class="tl">Actual</div><div class="tv" id="ch-inc-actual">€0</div></div>
+          <div class="col-total-item"><div class="tl">Planned</div><div class="tv" id="ch-inc-planned">0</div></div>
+          <div class="col-total-item"><div class="tl">Actual</div><div class="tv" id="ch-inc-actual">0</div></div>
         </div>
       </div>
       <div class="tbl-head">
-        <span>Item</span><span style="text-align:right">Planned</span><span style="text-align:right">Actual</span><span style="text-align:right">Δ</span>
+        <span>Item</span><span style="text-align:right">Planned</span><span style="text-align:right">Actual</span><span style="text-align:right">Delta</span>
       </div>
       <div id="income-body"></div>
     </div>
@@ -318,26 +296,24 @@ body {
       <div class="col-head">
         <div class="col-head-title expense">Expenses</div>
         <div class="col-totals">
-          <div class="col-total-item"><div class="tl">Planned</div><div class="tv" id="ch-exp-planned">€0</div></div>
-          <div class="col-total-item"><div class="tl">Actual</div><div class="tv" id="ch-exp-actual">€0</div></div>
+          <div class="col-total-item"><div class="tl">Planned</div><div class="tv" id="ch-exp-planned">0</div></div>
+          <div class="col-total-item"><div class="tl">Actual</div><div class="tv" id="ch-exp-actual">0</div></div>
         </div>
       </div>
       <div class="tbl-head">
-        <span>Item</span><span style="text-align:right">Planned</span><span style="text-align:right">Actual</span><span style="text-align:right">Δ</span>
+        <span>Item</span><span style="text-align:right">Planned</span><span style="text-align:right">Actual</span><span style="text-align:right">Delta</span>
       </div>
       <div id="expense-body"></div>
     </div>
   </div>
 </div>
-
-<!-- PLAN -->
 <div class="page" id="tab-plan">
-  <p class="plan-intro">Set your expected income and expenses for <strong id="plan-month-lbl"></strong>. These become your monthly budget targets.</p>
+  <p class="plan-intro">Set your expected income and expenses for <strong id="plan-month-lbl"></strong>.</p>
   <div class="plan-grid">
     <div class="plan-card">
       <div class="plan-card-head">
         <div class="plan-card-head-title income">Expected Income</div>
-        <div class="plan-card-head-total" id="plan-inc-total">€0</div>
+        <div class="plan-card-head-total" id="plan-inc-total">0</div>
       </div>
       <div id="plan-income-list"></div>
       <div class="add-row">
@@ -346,14 +322,14 @@ body {
           <option value="Salary">Salary</option>
           <option value="Other Income">Other</option>
         </select>
-        <input class="inp-amt" id="pi-amt" type="number" placeholder="€0" min="0"/>
+        <input class="inp-amt" id="pi-amt" type="number" placeholder="0" min="0"/>
         <button class="btn-add" onclick="addPlanItem('income')">Add</button>
       </div>
     </div>
     <div class="plan-card">
       <div class="plan-card-head">
         <div class="plan-card-head-title expense">Expected Expenses</div>
-        <div class="plan-card-head-total" id="plan-exp-total">€0</div>
+        <div class="plan-card-head-total" id="plan-exp-total">0</div>
       </div>
       <div id="plan-expense-list"></div>
       <div class="add-row">
@@ -365,14 +341,12 @@ body {
           <option value="Trips">Trips</option>
           <option value="Other">Other</option>
         </select>
-        <input class="inp-amt" id="pe-amt" type="number" placeholder="€0" min="0"/>
+        <input class="inp-amt" id="pe-amt" type="number" placeholder="0" min="0"/>
         <button class="btn-add" onclick="addPlanItem('expense')">Add</button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- LOG -->
 <div class="page" id="tab-log">
   <div class="log-form">
     <div class="field f-desc">
@@ -395,7 +369,7 @@ body {
       <select id="log-item"></select>
     </div>
     <div class="field">
-      <label>Amount (€)</label>
+      <label>Amount (EUR)</label>
       <input type="number" id="log-amt" placeholder="0.00" min="0" step="0.01"/>
     </div>
     <div class="field">
@@ -406,258 +380,216 @@ body {
   </div>
   <div class="log-table">
     <div class="log-table-head">
-      <span>Date</span><span>Description</span><span>Category · Item</span><span>Amount</span><span>Type</span><span></span>
+      <span>Date</span><span>Description</span><span>Category</span><span>Amount</span><span>Type</span><span></span>
     </div>
     <div id="log-list"></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-let currentYear = new Date().getFullYear();
-let currentMonth = new Date().getMonth();
-let data = JSON.parse(localStorage.getItem('budgetapp_v3') || '{}');
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var currentYear = new Date().getFullYear();
+var currentMonth = new Date().getMonth();
+var data = JSON.parse(localStorage.getItem('budgetapp_v3') || '{}');
 
-function key() { return `${currentYear}-${String(currentMonth+1).padStart(2,'0')}`; }
-function getMonth() {
+function key() { return currentYear + '-' + String(currentMonth+1).padStart(2,'0'); }
+function getMonthData() {
   if (!data[key()]) data[key()] = { plan: { income: [], expense: [] }, logs: [] };
   return data[key()];
 }
 function save() { localStorage.setItem('budgetapp_v3', JSON.stringify(data)); }
-function fmt(n) { const abs = Math.abs(n).toFixed(2); const parts = abs.split('.'); const intFmt = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.'); return '€' + intFmt + ',' + parts[1]; }
-
+function fmt(n) {
+  var abs = Math.abs(n).toFixed(2);
+  var parts = abs.split('.');
+  var intFmt = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return '\u20ac' + intFmt + ',' + parts[1];
+}
 function changeMonth(d) {
   currentMonth += d;
   if (currentMonth > 11) { currentMonth = 0; currentYear++; }
   if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
   renderAll();
 }
-
 function showTab(id, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
   renderAll();
 }
-
 function showToast(msg) {
-  const t = document.getElementById('toast');
+  var t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  setTimeout(function() { t.classList.remove('show'); }, 2200);
 }
-
-// PLAN
 function addPlanItem(type) {
-  const dId = type === 'income' ? 'pi-desc' : 'pe-desc';
-  const cId = type === 'income' ? 'pi-cat'  : 'pe-cat';
-  const aId = type === 'income' ? 'pi-amt'  : 'pe-amt';
-  const desc = document.getElementById(dId).value.trim();
-  const cat  = document.getElementById(cId).value;
-  const amt  = parseFloat(document.getElementById(aId).value);
+  var dId = type === 'income' ? 'pi-desc' : 'pe-desc';
+  var cId = type === 'income' ? 'pi-cat'  : 'pe-cat';
+  var aId = type === 'income' ? 'pi-amt'  : 'pe-amt';
+  var desc = document.getElementById(dId).value.trim();
+  var cat  = document.getElementById(cId).value;
+  var amt  = parseFloat(document.getElementById(aId).value);
   if (!desc || !amt || amt <= 0) { showToast('Please fill in all fields'); return; }
-  getMonth().plan[type].push({ id: Date.now(), desc, cat, amt });
+  getMonthData().plan[type].push({ id: Date.now(), desc: desc, cat: cat, amt: amt });
   save();
   document.getElementById(dId).value = '';
   document.getElementById(aId).value = '';
   renderAll();
   showToast('Item added');
 }
-
 function deletePlanItem(type, id) {
-  getMonth().plan[type] = getMonth().plan[type].filter(i => i.id !== id);
+  getMonthData().plan[type] = getMonthData().plan[type].filter(function(i) { return i.id !== id; });
   save(); renderAll();
 }
-
 function updatePlanAmt(type, id, val) {
-  const item = getMonth().plan[type].find(i => i.id === id);
+  var item = getMonthData().plan[type].find(function(i) { return i.id === id; });
   if (item) { item.amt = parseFloat(val) || 0; save(); renderAll(); }
 }
-
 function renderPlan() {
-  const m = getMonth();
+  var m = getMonthData();
   document.getElementById('plan-month-lbl').textContent = MONTHS[currentMonth] + ' ' + currentYear;
-  ['income','expense'].forEach(type => {
-    const items = m.plan[type];
-    const total = items.reduce((s,i) => s+i.amt, 0);
+  ['income','expense'].forEach(function(type) {
+    var items = m.plan[type];
+    var total = items.reduce(function(s,i) { return s+i.amt; }, 0);
     document.getElementById(type === 'income' ? 'plan-inc-total' : 'plan-exp-total').textContent = fmt(total);
-    const el = document.getElementById(`plan-${type}-list`);
-    el.innerHTML = !items.length
-      ? `<div class="empty-state">No items yet — add one below</div>`
-      : items.map(i => `
-        <div class="plan-item">
-          <div class="plan-item-name">${i.desc}</div>
-          <div class="plan-cat-pill">${i.cat}</div>
-          <input class="plan-amt-input" type="number" value="${i.amt.toFixed(2)}"
-            onchange="updatePlanAmt('${type}',${i.id},this.value)" min="0"/>
-          <button class="btn-del" onclick="deletePlanItem('${type}',${i.id})">✕</button>
-        </div>`).join('');
+    var el = document.getElementById('plan-' + type + '-list');
+    if (!items.length) { el.innerHTML = '<div class="empty-state">No items yet</div>'; return; }
+    el.innerHTML = items.map(function(i) {
+      return '<div class="plan-item">' +
+        '<div class="plan-item-name">' + i.desc + '</div>' +
+        '<div class="plan-cat-pill">' + i.cat + '</div>' +
+        '<input class="plan-amt-input" type="number" value="' + i.amt.toFixed(2) + '" onchange="updatePlanAmt(\'' + type + '\',' + i.id + ',this.value)" min="0"/>' +
+        '<button class="btn-del" onclick="deletePlanItem(\'' + type + '\',' + i.id + ')">x</button>' +
+        '</div>';
+    }).join('');
   });
 }
-
-// LOG
 function updateLogCats() {
-  const type = document.getElementById('log-type').value;
-  const cats = [...new Set(getMonth().plan[type].map(i => i.cat))];
-  document.getElementById('log-cat').innerHTML = cats.length
-    ? cats.map(c => `<option>${c}</option>`).join('')
-    : `<option value="">— add plan items first —</option>`;
+  var type = document.getElementById('log-type').value;
+  var cats = [];
+  getMonthData().plan[type].forEach(function(i) { if (cats.indexOf(i.cat) === -1) cats.push(i.cat); });
+  var catSel = document.getElementById('log-cat');
+  catSel.innerHTML = cats.length ? cats.map(function(c) { return '<option>' + c + '</option>'; }).join('') : '<option value="">add plan items first</option>';
   updateLogItems();
 }
-
 function updateLogItems() {
-  const type = document.getElementById('log-type').value;
-  const cat  = document.getElementById('log-cat').value;
-  const items = getMonth().plan[type].filter(i => i.cat === cat);
-  document.getElementById('log-item').innerHTML = items.length
-    ? items.map(i => `<option value="${i.id}">${i.desc}</option>`).join('')
-    : `<option value="">— no items —</option>`;
+  var type = document.getElementById('log-type').value;
+  var cat  = document.getElementById('log-cat').value;
+  var items = getMonthData().plan[type].filter(function(i) { return i.cat === cat; });
+  document.getElementById('log-item').innerHTML = items.length ? items.map(function(i) { return '<option value="' + i.id + '">' + i.desc + '</option>'; }).join('') : '<option value="">no items</option>';
 }
-
 function addLog() {
-  const desc   = document.getElementById('log-desc').value.trim();
-  const type   = document.getElementById('log-type').value;
-  const cat    = document.getElementById('log-cat').value;
-  const itemId = parseInt(document.getElementById('log-item').value) || null;
-  const amt    = parseFloat(document.getElementById('log-amt').value);
-  const date   = document.getElementById('log-date').value;
+  var desc   = document.getElementById('log-desc').value.trim();
+  var type   = document.getElementById('log-type').value;
+  var cat    = document.getElementById('log-cat').value;
+  var itemId = parseInt(document.getElementById('log-item').value) || null;
+  var amt    = parseFloat(document.getElementById('log-amt').value);
+  var date   = document.getElementById('log-date').value;
   if (!desc || !amt || !date) { showToast('Please fill in all fields'); return; }
-  const planItem = getMonth().plan[type].find(i => i.id === itemId);
-  getMonth().logs.push({ id: Date.now(), desc, type, cat, itemId, itemName: planItem?.desc || '—', amt, date });
+  var planItem = getMonthData().plan[type].find(function(i) { return i.id === itemId; });
+  getMonthData().logs.push({ id: Date.now(), desc: desc, type: type, cat: cat, itemId: itemId, itemName: planItem ? planItem.desc : '-', amt: amt, date: date });
   save();
   document.getElementById('log-desc').value = '';
   document.getElementById('log-amt').value = '';
   renderAll();
   showToast('Entry logged');
 }
-
 function deleteLog(id) {
-  getMonth().logs = getMonth().logs.filter(l => l.id !== id);
+  getMonthData().logs = getMonthData().logs.filter(function(l) { return l.id !== id; });
   save(); renderAll();
 }
-
 function renderLog() {
   updateLogCats();
-  const logs = getMonth().logs.slice().sort((a,b) => new Date(b.date)-new Date(a.date));
-  const el = document.getElementById('log-list');
+  var logs = getMonthData().logs.slice().sort(function(a,b) { return new Date(b.date)-new Date(a.date); });
+  var el = document.getElementById('log-list');
   if (!logs.length) { el.innerHTML = '<div class="empty-state">No entries this month</div>'; return; }
-  el.innerHTML = logs.map(l => {
-    const ds = new Date(l.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
-    return `<div class="log-row">
-      <span class="log-date">${ds}</span>
-      <span class="log-desc">${l.desc}</span>
-      <span class="log-cat">${l.cat} · ${l.itemName}</span>
-      <span class="log-amt ${l.type}">${l.type==='income'?'+':'-'}${fmt(l.amt)}</span>
-      <span><span class="type-pill tp-${l.type}">${l.type}</span></span>
-      <button class="btn-del" onclick="deleteLog(${l.id})">✕</button>
-    </div>`;
+  el.innerHTML = logs.map(function(l) {
+    var d = new Date(l.date);
+    var ds = d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+    return '<div class="log-row">' +
+      '<span class="log-date">' + ds + '</span>' +
+      '<span class="log-desc">' + l.desc + '</span>' +
+      '<span class="log-cat">' + l.cat + ' - ' + l.itemName + '</span>' +
+      '<span class="log-amt ' + l.type + '">' + (l.type==='income'?'+':'-') + fmt(l.amt) + '</span>' +
+      '<span><span class="type-pill tp-' + l.type + '">' + l.type + '</span></span>' +
+      '<button class="btn-del" onclick="deleteLog(' + l.id + ')">x</button>' +
+      '</div>';
   }).join('');
 }
-
-// DASHBOARD
 function deltaTag(delta, planned) {
-  if (planned === 0) return `<span class="delta d-zero">—</span>`;
-  if (Math.abs(delta) < 0.01) return `<span class="delta d-zero">On track</span>`;
-  if (delta > 0) return `<span class="delta d-good">+${fmt(delta)}</span>`;
-  return `<span class="delta ${Math.abs(delta)/planned > 0.15 ? 'd-bad' : 'd-warn'}">${fmt(delta)}</span>`;
+  if (planned === 0) return '<span class="delta d-zero">-</span>';
+  if (Math.abs(delta) < 0.01) return '<span class="delta d-zero">On track</span>';
+  if (delta > 0) return '<span class="delta d-good">+' + fmt(delta) + '</span>';
+  return '<span class="delta ' + (Math.abs(delta)/planned > 0.15 ? 'd-bad' : 'd-warn') + '">' + fmt(Math.abs(delta)) + '</span>';
 }
-
 function renderDashboard() {
-  const m = getMonth();
-  const actualByItem = {};
-  m.logs.forEach(l => { if (l.itemId) actualByItem[l.itemId] = (actualByItem[l.itemId]||0) + l.amt; });
-
-  const incPlanned = m.plan.income.reduce((s,i)=>s+i.amt,0);
-  const expPlanned = m.plan.expense.reduce((s,i)=>s+i.amt,0);
-  const incActual  = m.logs.filter(l=>l.type==='income').reduce((s,l)=>s+l.amt,0);
-  const expActual  = m.logs.filter(l=>l.type==='expense').reduce((s,l)=>s+l.amt,0);
-  const netActual  = incActual - expActual;
-  const remaining  = expPlanned - expActual;
-
-  document.getElementById('s-net').textContent          = (netActual>=0?'+':'−') + fmt(netActual);
+  var m = getMonthData();
+  var actualByItem = {};
+  m.logs.forEach(function(l) { if (l.itemId) actualByItem[l.itemId] = (actualByItem[l.itemId]||0) + l.amt; });
+  var incPlanned = m.plan.income.reduce(function(s,i){return s+i.amt;},0);
+  var expPlanned = m.plan.expense.reduce(function(s,i){return s+i.amt;},0);
+  var incActual  = m.logs.filter(function(l){return l.type==='income';}).reduce(function(s,l){return s+l.amt;},0);
+  var expActual  = m.logs.filter(function(l){return l.type==='expense';}).reduce(function(s,l){return s+l.amt;},0);
+  var netActual  = incActual - expActual;
+  var remaining  = expPlanned - expActual;
+  document.getElementById('s-net').textContent          = (netActual>=0?'+':'-') + fmt(netActual);
   document.getElementById('s-net').style.color          = netActual >= 0 ? 'inherit' : 'var(--red)';
-  document.getElementById('s-net-sub').textContent      = `vs. planned ${(incPlanned-expPlanned>=0?'+':'−')+fmt(incPlanned-expPlanned)}`;
+  document.getElementById('s-net-sub').textContent      = 'vs. planned ' + fmt(incPlanned-expPlanned);
   document.getElementById('s-income').textContent       = fmt(incActual);
-  document.getElementById('s-income-sub').textContent   = `planned ${fmt(incPlanned)}`;
+  document.getElementById('s-income-sub').textContent   = 'planned ' + fmt(incPlanned);
   document.getElementById('s-expenses').textContent     = fmt(expActual);
-  document.getElementById('s-expenses-sub').textContent = `planned ${fmt(expPlanned)}`;
-  document.getElementById('s-remaining').textContent    = (remaining>=0?'':'−') + fmt(remaining);
+  document.getElementById('s-expenses-sub').textContent = 'planned ' + fmt(expPlanned);
+  document.getElementById('s-remaining').textContent    = fmt(remaining);
   document.getElementById('s-remaining').style.color    = remaining >= 0 ? 'inherit' : 'var(--red)';
   document.getElementById('s-remaining-sub').textContent= remaining >= 0 ? 'left to spend' : 'over budget';
   document.getElementById('ch-inc-planned').textContent = fmt(incPlanned);
   document.getElementById('ch-inc-actual').textContent  = fmt(incActual);
   document.getElementById('ch-exp-planned').textContent = fmt(expPlanned);
   document.getElementById('ch-exp-actual').textContent  = fmt(expActual);
-
   function renderSide(type, containerId) {
-    const items = m.plan[type];
-    const el = document.getElementById(containerId);
-    if (!items.length) { el.innerHTML = `<div class="empty-state">No planned items — go to <strong>Plan</strong> tab</div>`; return; }
-    const cats = {};
-    items.forEach(i => { if (!cats[i.cat]) cats[i.cat]=[]; cats[i.cat].push(i); });
-    let html = '';
-    Object.entries(cats).forEach(([cat, catItems]) => {
-      const catPlanned = catItems.reduce((s,i)=>s+i.amt,0);
-      const catActual  = catItems.reduce((s,i)=>s+(actualByItem[i.id]||0),0);
-      const catDelta   = type==='income' ? catActual-catPlanned : catPlanned-catActual;
-      html += `<div class="cat-block">
-        <div class="cat-label-row">
-          <div class="cat-label">${cat}</div>
-          <span>${fmt(catPlanned)}</span><span>${fmt(catActual)}</span>
-          <span>${deltaTag(catDelta, catPlanned)}</span>
-        </div>`;
-      catItems.forEach(item => {
-        const actual = actualByItem[item.id]||0;
-        const delta  = type==='income' ? actual-item.amt : item.amt-actual;
-        html += `<div class="line">
-          <div class="line-name">${item.desc}</div>
-          <div class="line-num">${fmt(item.amt)}</div>
-          <div class="line-actual">${fmt(actual)}</div>
-          <div>${deltaTag(delta, item.amt)}</div>
-        </div>`;
+    var items = m.plan[type];
+    var el = document.getElementById(containerId);
+    if (!items.length) { el.innerHTML = '<div class="empty-state">No planned items - go to Plan tab</div>'; return; }
+    var cats = {};
+    items.forEach(function(i) { if (!cats[i.cat]) cats[i.cat]=[]; cats[i.cat].push(i); });
+    var html = '';
+    Object.keys(cats).forEach(function(cat) {
+      var catItems = cats[cat];
+      var catPlanned = catItems.reduce(function(s,i){return s+i.amt;},0);
+      var catActual  = catItems.reduce(function(s,i){return s+(actualByItem[i.id]||0);},0);
+      var catDelta   = type==='income' ? catActual-catPlanned : catPlanned-catActual;
+      html += '<div class="cat-block"><div class="cat-label-row"><div class="cat-label">' + cat + '</div><span>' + fmt(catPlanned) + '</span><span>' + fmt(catActual) + '</span><span>' + deltaTag(catDelta,catPlanned) + '</span></div>';
+      catItems.forEach(function(item) {
+        var actual = actualByItem[item.id]||0;
+        var delta  = type==='income' ? actual-item.amt : item.amt-actual;
+        html += '<div class="line"><div class="line-name">' + item.desc + '</div><div class="line-num">' + fmt(item.amt) + '</div><div class="line-actual">' + fmt(actual) + '</div><div>' + deltaTag(delta,item.amt) + '</div></div>';
       });
-      html += `</div>`;
+      html += '</div>';
     });
     el.innerHTML = html;
   }
   renderSide('income','income-body');
   renderSide('expense','expense-body');
 }
-
 function renderAll() {
   document.getElementById('monthLabel').textContent = MONTHS[currentMonth] + ' ' + currentYear;
   renderDashboard(); renderPlan(); renderLog();
 }
-
-// INIT
 document.getElementById('log-date').value = new Date().toISOString().split('T')[0];
-const mk = key();
+var mk = key();
 if (!data[mk]) {
   data[mk] = {
     plan: {
-      income:  [
-        {id:1,desc:'Monthly salary',cat:'Salary',amt:3200},
-        {id:2,desc:'Freelance project',cat:'Other Income',amt:400}
-      ],
-      expense: [
-        {id:3,desc:'Rent',cat:'Utilities',amt:950},
-        {id:4,desc:'Electricity & gas',cat:'Utilities',amt:120},
-        {id:5,desc:'Groceries',cat:'Food',amt:300},
-        {id:6,desc:'Restaurants',cat:'Food',amt:150},
-        {id:7,desc:'Spotify',cat:'Spotify',amt:10.99},
-        {id:8,desc:'Summer trip',cat:'Trips',amt:500},
-        {id:9,desc:'Misc',cat:'Other',amt:100}
-      ]
+      income:  [{id:1,desc:'Monthly salary',cat:'Salary',amt:3200},{id:2,desc:'Freelance',cat:'Other Income',amt:400}],
+      expense: [{id:3,desc:'Rent',cat:'Utilities',amt:950},{id:4,desc:'Electricity',cat:'Utilities',amt:120},{id:5,desc:'Groceries',cat:'Food',amt:300},{id:6,desc:'Restaurants',cat:'Food',amt:150},{id:7,desc:'Spotify',cat:'Spotify',amt:10.99},{id:8,desc:'Summer trip',cat:'Trips',amt:500},{id:9,desc:'Misc',cat:'Other',amt:100}]
     },
     logs: [
-      {id:101,desc:'Salary deposit',type:'income',cat:'Salary',itemId:1,itemName:'Monthly salary',amt:3200,date:`${mk}-01`},
-      {id:102,desc:'Lidl groceries',type:'expense',cat:'Food',itemId:5,itemName:'Groceries',amt:87.40,date:`${mk}-03`},
-      {id:103,desc:'Rent payment',type:'expense',cat:'Utilities',itemId:3,itemName:'Rent',amt:950,date:`${mk}-01`},
-      {id:104,desc:'Spotify charge',type:'expense',cat:'Spotify',itemId:7,itemName:'Spotify',amt:10.99,date:`${mk}-05`},
-      {id:105,desc:'Dinner out',type:'expense',cat:'Food',itemId:6,itemName:'Restaurants',amt:42,date:`${mk}-06`}
+      {id:101,desc:'Salary',type:'income',cat:'Salary',itemId:1,itemName:'Monthly salary',amt:3200,date:mk+'-01'},
+      {id:102,desc:'Lidl',type:'expense',cat:'Food',itemId:5,itemName:'Groceries',amt:87.40,date:mk+'-03'},
+      {id:103,desc:'Rent',type:'expense',cat:'Utilities',itemId:3,itemName:'Rent',amt:950,date:mk+'-01'},
+      {id:104,desc:'Spotify',type:'expense',cat:'Spotify',itemId:7,itemName:'Spotify',amt:10.99,date:mk+'-05'},
+      {id:105,desc:'Dinner',type:'expense',cat:'Food',itemId:6,itemName:'Restaurants',amt:42,date:mk+'-06'}
     ]
   };
   save();
