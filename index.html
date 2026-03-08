@@ -426,7 +426,7 @@ function getMonth() {
   return data[key()];
 }
 function save() { localStorage.setItem('budgetapp_v3', JSON.stringify(data)); }
-function fmt(n) { return '€' + Math.abs(n).toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+function fmt(n) { const abs = Math.abs(n).toFixed(2); const parts = abs.split('.'); const intFmt = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.'); return '\u20ac' + intFmt + ',' + parts[1]; }
 
 function changeMonth(d) {
   currentMonth += d;
@@ -577,13 +577,13 @@ function renderDashboard() {
   const netActual  = incActual - expActual;
   const remaining  = expPlanned - expActual;
 
-  document.getElementById('s-net').textContent          = (netActual>=0?'+':'') + '€' + netActual.toFixed(2);
+  document.getElementById('s-net').textContent          = (netActual>=0?'+':'−') + fmt(netActual);
   document.getElementById('s-net').style.color          = netActual >= 0 ? 'inherit' : 'var(--red)';
-  document.getElementById('s-net-sub').textContent      = `vs. planned €${(incPlanned-expPlanned).toFixed(2)}`;
-  document.getElementById('s-income').textContent       = '€' + incActual.toFixed(2);
-  document.getElementById('s-income-sub').textContent   = `planned €${incPlanned.toFixed(2)}`;
-  document.getElementById('s-expenses').textContent     = '€' + expActual.toFixed(2);
-  document.getElementById('s-expenses-sub').textContent = `planned €${expPlanned.toFixed(2)}`;
+  document.getElementById('s-net-sub').textContent      = `vs. planned ${(incPlanned-expPlanned>=0?'+':'−')+fmt(incPlanned-expPlanned)}`;
+  document.getElementById('s-income').textContent       = fmt(incActual);
+  document.getElementById('s-income-sub').textContent   = `planned ${fmt(incPlanned)}`;
+  document.getElementById('s-expenses').textContent     = fmt(expActual);
+  document.getElementById('s-expenses-sub').textContent = `planned ${fmt(expPlanned)}`;
   document.getElementById('s-remaining').textContent    = (remaining>=0?'':'−') + fmt(remaining);
   document.getElementById('s-remaining').style.color    = remaining >= 0 ? 'inherit' : 'var(--red)';
   document.getElementById('s-remaining-sub').textContent= remaining >= 0 ? 'left to spend' : 'over budget';
