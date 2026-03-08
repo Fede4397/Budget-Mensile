@@ -4,378 +4,326 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Budget Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --bg: #f5f2ec;
-  --ink: #1a1812;
-  --muted: #8a8478;
+  --bg: #f9f9f8;
   --surface: #ffffff;
-  --border: #e0dbd0;
-  --green: #2d6a4f;
-  --green-light: #e8f5ee;
-  --red: #9b2226;
-  --red-light: #fceaea;
-  --yellow: #b5862a;
-  --yellow-light: #fdf3dc;
-  --accent: #1a1812;
-  --radius: 14px;
+  --border: #e8e8e5;
+  --border-strong: #d4d4ce;
+  --ink: #1a1a18;
+  --ink-2: #3d3d3a;
+  --muted: #8f8f8a;
+  --muted-light: #b8b8b2;
+  --green: #1a7f5a;
+  --green-bg: #f0faf5;
+  --green-border: #c8ead8;
+  --red: #c0392b;
+  --red-bg: #fdf4f3;
+  --red-border: #f0c8c4;
+  --yellow: #92600a;
+  --yellow-bg: #fdf8ee;
+  --yellow-border: #f0dfa0;
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--ink);
   min-height: 100vh;
-  background-image: radial-gradient(circle at 20% 50%, rgba(45,106,79,0.05) 0%, transparent 60%),
-                    radial-gradient(circle at 80% 20%, rgba(155,34,38,0.05) 0%, transparent 50%);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── TOP BAR ── */
+/* TOPBAR */
 .topbar {
-  background: var(--ink);
-  color: #f5f2ec;
-  padding: 0 40px;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 60px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  display: flex; align-items: center;
+  padding: 0 28px; gap: 32px;
   position: sticky; top: 0; z-index: 100;
 }
-.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.5px; }
-.logo em { color: #c9f55a; font-style: normal; }
-.month-nav { display: flex; align-items: center; gap: 16px; }
+.logo { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; white-space: nowrap; }
+.logo span { color: var(--muted); font-weight: 400; }
+.month-nav { display: flex; align-items: center; gap: 8px; margin: 0 auto; }
 .month-nav button {
-  background: rgba(255,255,255,0.1); border: none; color: #f5f2ec;
-  width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
-  font-size: 16px; display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s;
+  width: 26px; height: 26px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--muted); cursor: pointer; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
 }
-.month-nav button:hover { background: rgba(255,255,255,0.2); }
-.month-label { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; min-width: 130px; text-align: center; }
-.tab-nav { display: flex; gap: 4px; }
+.month-nav button:hover { border-color: var(--border-strong); color: var(--ink); }
+.month-label { font-size: 13px; font-weight: 500; min-width: 120px; text-align: center; letter-spacing: -0.2px; }
+.tab-nav { display: flex; gap: 2px; }
 .tab-btn {
-  background: none; border: none; color: rgba(245,242,236,0.5);
-  font-family: 'Instrument Sans', sans-serif; font-size: 13px; font-weight: 500;
-  padding: 6px 16px; border-radius: 99px; cursor: pointer; transition: all 0.2s;
+  background: none; border: none; color: var(--muted);
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+  padding: 5px 12px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.15s;
 }
-.tab-btn.active { background: rgba(255,255,255,0.15); color: #f5f2ec; }
+.tab-btn:hover { background: var(--bg); color: var(--ink-2); }
+.tab-btn.active { background: var(--ink); color: #fff; }
 
-/* ── PAGES ── */
-.page { display: none; padding: 32px 40px; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.3s ease; }
+/* LAYOUT */
+.page { display: none; padding: 28px; max-width: 1100px; margin: 0 auto; animation: fadeIn 0.2s ease; }
 .page.active { display: block; }
-@keyframes fadeIn { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:translateY(0) } }
 
-/* ── DASHBOARD ── */
-.net-banner {
-  background: var(--ink);
-  border-radius: var(--radius);
-  padding: 28px 36px;
-  margin-bottom: 24px;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 20px;
+/* SUMMARY BAR */
+.summary-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.summary-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow);
 }
-.net-banner .label { font-size: 12px; color: rgba(245,242,236,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
-.net-banner .value { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; color: #c9f55a; letter-spacing: -2px; }
-.net-banner .sub { font-size: 13px; color: rgba(245,242,236,0.5); margin-top: 4px; }
-.net-divider { width: 1px; height: 60px; background: rgba(255,255,255,0.1); }
-.net-stat .label { color: rgba(245,242,236,0.45); }
-.net-stat .value { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: #f5f2ec; }
+.summary-card.highlight { background: var(--ink); border-color: var(--ink); }
+.s-label { font-size: 11px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+.highlight .s-label { color: rgba(255,255,255,0.45); }
+.s-value { font-size: 22px; font-weight: 600; letter-spacing: -0.8px; }
+.highlight .s-value { color: #fff; }
+.s-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.highlight .s-sub { color: rgba(255,255,255,0.4); }
 
 /* TWO COLUMNS */
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .col-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow);
 }
-.col-header {
-  padding: 18px 24px;
-  border-bottom: 1px solid var(--border);
+.col-head {
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center;
 }
-.col-header-title {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px;
-  text-transform: uppercase; letter-spacing: 1px;
-}
-.col-header-title.income { color: var(--green); }
-.col-header-title.expense { color: var(--red); }
-.col-header-total { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; }
+.col-head-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+.col-head-title.income { color: var(--green); }
+.col-head-title.expense { color: var(--red); }
+.col-totals { display: flex; gap: 20px; }
+.col-total-item { text-align: right; }
+.col-total-item .tl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.col-total-item .tv { font-size: 14px; font-weight: 600; letter-spacing: -0.3px; }
 
-/* CATEGORY ROWS */
-.cat-section { border-bottom: 1px solid var(--border); }
-.cat-section:last-child { border-bottom: none; }
-.cat-row {
-  display: grid;
-  grid-template-columns: 1fr 100px 100px 90px;
-  gap: 0;
-  padding: 14px 24px;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  background: #fafaf8;
+/* TABLE */
+.tbl-head {
+  display: grid; grid-template-columns: 1fr 88px 88px 80px;
+  padding: 8px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
 }
-.cat-row:last-child { border-bottom: none; }
-.cat-name { font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); }
-.col-hdr { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; text-align: right; }
+.tbl-head span { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
+.tbl-head span:not(:first-child) { text-align: right; }
 
-/* LINE ITEMS */
-.line-item {
-  display: grid;
-  grid-template-columns: 1fr 100px 100px 90px;
-  padding: 12px 24px 12px 36px;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
+.cat-block { border-bottom: 1px solid var(--border); }
+.cat-block:last-child { border-bottom: none; }
+.cat-label-row {
+  display: grid; grid-template-columns: 1fr 88px 88px 80px;
+  padding: 9px 20px; background: #fafaf8; border-bottom: 1px solid var(--border);
 }
-.line-item:last-of-type { border-bottom: none; }
-.line-item:hover { background: #f7f5f0; }
-.line-desc { font-size: 14px; }
-.line-budget { font-size: 14px; color: var(--muted); text-align: right; }
-.line-actual { font-size: 14px; font-weight: 500; text-align: right; }
-.line-delta { font-size: 13px; font-weight: 600; text-align: right; border-radius: 6px; padding: 3px 8px; text-align: center; }
-.delta-good { background: var(--green-light); color: var(--green); }
-.delta-bad  { background: var(--red-light); color: var(--red); }
-.delta-zero { background: #f0ede6; color: var(--muted); }
-.delta-warn { background: var(--yellow-light); color: var(--yellow); }
+.cat-label { font-size: 11px; font-weight: 600; color: var(--muted-light); text-transform: uppercase; letter-spacing: 0.8px; }
+.cat-label-row span:not(:first-child) { font-size: 12px; font-weight: 500; color: var(--ink-2); text-align: right; }
 
-.add-line {
-  padding: 10px 24px 10px 36px;
-  display: flex; gap: 8px; align-items: center;
-  border-top: 1px dashed var(--border);
+.line {
+  display: grid; grid-template-columns: 1fr 88px 88px 80px;
+  padding: 10px 20px 10px 28px; border-bottom: 1px solid var(--border);
+  align-items: center; transition: background 0.1s;
 }
-.add-line input, .add-line select {
-  border: 1px solid var(--border); background: var(--bg);
-  color: var(--ink); padding: 7px 10px; border-radius: 8px;
-  font-family: 'Instrument Sans', sans-serif; font-size: 13px; outline: none;
-  transition: border-color 0.2s;
-}
-.add-line input:focus, .add-line select:focus { border-color: var(--ink); }
-.add-line input.desc { flex: 1; }
-.add-line input.amt { width: 90px; }
-.btn-sm {
-  background: var(--ink); color: #f5f2ec;
-  border: none; border-radius: 8px;
-  padding: 7px 14px; font-family: 'Instrument Sans', sans-serif;
-  font-size: 13px; font-weight: 500; cursor: pointer;
-  transition: opacity 0.2s; white-space: nowrap;
-}
-.btn-sm:hover { opacity: 0.8; }
-.btn-del {
-  background: none; border: none; cursor: pointer;
-  color: #ccc; font-size: 14px; padding: 2px 6px;
-  border-radius: 4px; transition: all 0.15s; margin-left: 4px;
-}
-.btn-del:hover { color: var(--red); background: var(--red-light); }
+.line:last-child { border-bottom: none; }
+.line:hover { background: #fafaf8; }
+.line-name { font-size: 13px; color: var(--ink-2); }
+.line-num { font-size: 13px; text-align: right; color: var(--muted); }
+.line-actual { font-size: 13px; text-align: right; font-weight: 500; color: var(--ink); }
 
-/* CAT TOTALS ROW */
-.cat-total-row {
-  display: grid;
-  grid-template-columns: 1fr 100px 100px 90px;
-  padding: 10px 24px 10px 36px;
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  font-size: 13px; font-weight: 600;
-}
-.cat-total-row span { text-align: right; }
-.cat-total-row span:first-child { text-align: left; color: var(--muted); }
+.delta { font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: var(--radius-sm); text-align: center; letter-spacing: -0.1px; }
+.d-good { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.d-bad  { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.d-warn { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+.d-zero { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
 
-/* ── PLAN PAGE ── */
-.plan-intro {
-  font-size: 15px; color: var(--muted); margin-bottom: 28px; max-width: 600px;
-}
-.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+/* PLAN */
+.plan-intro { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .plan-card {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); overflow: hidden;
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow);
 }
-.plan-card-header {
-  padding: 16px 22px; border-bottom: 1px solid var(--border);
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px;
-  text-transform: uppercase; letter-spacing: 1px;
-  display: flex; justify-content: space-between; align-items: center;
+.plan-card-head {
+  padding: 13px 20px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center; background: var(--bg);
 }
-.plan-card-header.income { color: var(--green); }
-.plan-card-header.expense { color: var(--red); }
+.plan-card-head-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+.plan-card-head-title.income { color: var(--green); }
+.plan-card-head-title.expense { color: var(--red); }
+.plan-card-head-total { font-size: 13px; font-weight: 600; letter-spacing: -0.3px; }
 .plan-item {
-  display: flex; align-items: center; padding: 11px 22px;
-  border-bottom: 1px solid var(--border); gap: 12px;
+  display: flex; align-items: center; padding: 10px 20px;
+  border-bottom: 1px solid var(--border); gap: 10px;
 }
-.plan-item:last-child { border-bottom: none; }
-.plan-item-name { flex: 1; font-size: 14px; }
-.plan-cat-tag {
-  font-size: 11px; color: var(--muted); background: var(--bg);
-  padding: 2px 8px; border-radius: 99px; font-weight: 500;
+.plan-item-name { flex: 1; font-size: 13px; color: var(--ink-2); }
+.plan-cat-pill {
+  font-size: 10px; font-weight: 600; color: var(--muted);
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap;
 }
-.plan-item-input {
-  width: 100px; border: 1px solid var(--border); background: var(--bg);
-  color: var(--ink); padding: 6px 10px; border-radius: 8px;
-  font-family: 'Instrument Sans', sans-serif; font-size: 14px; font-weight: 500;
-  text-align: right; outline: none; transition: border-color 0.2s;
+.plan-amt-input {
+  width: 90px; border: 1px solid var(--border); background: var(--bg);
+  color: var(--ink); padding: 5px 10px; border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+  text-align: right; outline: none; transition: border-color 0.15s;
 }
-.plan-item-input:focus { border-color: var(--ink); }
-.add-plan-row {
-  padding: 10px 22px; display: flex; gap: 8px; border-top: 1px dashed var(--border); flex-wrap: wrap;
+.plan-amt-input:focus { border-color: var(--ink); background: var(--surface); }
+.btn-del {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted-light); font-size: 13px; padding: 3px 5px;
+  border-radius: var(--radius-sm); transition: all 0.15s; line-height: 1;
 }
-.add-plan-row input, .add-plan-row select {
-  border: 1px solid var(--border); background: var(--bg);
-  color: var(--ink); padding: 7px 10px; border-radius: 8px;
-  font-family: 'Instrument Sans', sans-serif; font-size: 13px; outline: none;
+.btn-del:hover { color: var(--red); background: var(--red-bg); }
+.add-row {
+  padding: 10px 20px; display: flex; gap: 8px;
+  border-top: 1px dashed var(--border); background: var(--bg); flex-wrap: wrap;
 }
-.add-plan-row input.name { flex: 1; min-width: 100px; }
-.add-plan-row input.amt { width: 90px; }
+.add-row input, .add-row select {
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--ink); padding: 6px 10px; border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif; font-size: 13px; outline: none; transition: border-color 0.15s;
+}
+.add-row input:focus, .add-row select:focus { border-color: var(--ink); }
+.add-row .inp-desc { flex: 1; min-width: 100px; }
+.add-row .inp-amt { width: 85px; text-align: right; }
+.btn-add {
+  background: var(--ink); color: #fff; border: none; border-radius: var(--radius-sm);
+  padding: 6px 14px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: opacity 0.15s; white-space: nowrap;
+}
+.btn-add:hover { opacity: 0.8; }
 
-/* ── LOG PAGE ── */
+/* LOG */
 .log-form {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 24px;
-  display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 24px;
+  border-radius: var(--radius-lg); padding: 20px;
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end;
+  margin-bottom: 16px; box-shadow: var(--shadow);
 }
-.log-form .field { display: flex; flex-direction: column; gap: 6px; }
-.log-form label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.log-form .field { display: flex; flex-direction: column; gap: 5px; }
+.log-form label { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
 .log-form input, .log-form select {
   border: 1px solid var(--border); background: var(--bg);
-  color: var(--ink); padding: 10px 14px; border-radius: 10px;
-  font-family: 'Instrument Sans', sans-serif; font-size: 14px; outline: none;
-  transition: border-color 0.2s;
+  color: var(--ink); padding: 7px 10px; border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif; font-size: 13px; outline: none; transition: border-color 0.15s;
 }
-.log-form input:focus, .log-form select:focus { border-color: var(--ink); }
-.log-form .desc { flex: 2; min-width: 160px; }
-.log-history {
+.log-form input:focus, .log-form select:focus { border-color: var(--ink); background: var(--surface); }
+.f-desc { flex: 2; min-width: 150px; }
+.log-table {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); overflow: hidden;
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow);
 }
-.log-header {
-  display: grid; grid-template-columns: 90px 1fr 120px 100px 80px 40px;
-  padding: 12px 20px; background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;
+.log-table-head {
+  display: grid; grid-template-columns: 80px 1fr 150px 100px 90px 32px;
+  padding: 9px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
 }
+.log-table-head span { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
 .log-row {
-  display: grid; grid-template-columns: 90px 1fr 120px 100px 80px 40px;
-  padding: 13px 20px; border-bottom: 1px solid var(--border);
-  align-items: center; font-size: 14px; transition: background 0.15s;
+  display: grid; grid-template-columns: 80px 1fr 150px 100px 90px 32px;
+  padding: 11px 20px; border-bottom: 1px solid var(--border);
+  align-items: center; transition: background 0.1s;
 }
 .log-row:last-child { border-bottom: none; }
-.log-row:hover { background: #f7f5f0; }
-.type-badge {
-  font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 99px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-.type-income { background: var(--green-light); color: var(--green); }
-.type-expense { background: var(--red-light); color: var(--red); }
-.log-amt { font-weight: 600; }
+.log-row:hover { background: #fafaf8; }
+.log-date { font-size: 12px; color: var(--muted); }
+.log-desc { font-size: 13px; color: var(--ink-2); }
+.log-cat { font-size: 12px; color: var(--muted); }
+.log-amt { font-size: 13px; font-weight: 600; letter-spacing: -0.3px; }
 .log-amt.income { color: var(--green); }
 .log-amt.expense { color: var(--red); }
+.type-pill { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.4px; }
+.tp-income  { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.tp-expense { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.empty-state { padding: 40px; text-align: center; font-size: 13px; color: var(--muted); }
 
-.empty { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
-
-/* TOAST */
 .toast {
-  position: fixed; bottom: 28px; right: 28px;
-  background: var(--ink); color: #f5f2ec;
-  padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500;
-  transform: translateY(60px); opacity: 0;
-  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); z-index: 999;
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--ink); color: #fff; padding: 10px 18px;
+  border-radius: var(--radius); font-size: 13px; font-weight: 500;
+  box-shadow: var(--shadow-md);
+  transform: translateY(50px); opacity: 0;
+  transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); z-index: 999;
 }
 .toast.show { transform: translateY(0); opacity: 1; }
 
-@media (max-width: 800px) {
-  .page { padding: 20px; }
+@media (max-width: 780px) {
+  .page { padding: 16px; }
   .two-col, .plan-grid { grid-template-columns: 1fr; }
-  .topbar { padding: 0 20px; }
-  .tab-btn span { display: none; }
+  .summary-bar { grid-template-columns: 1fr 1fr; }
+  .topbar { padding: 0 16px; gap: 12px; }
 }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
-  <div class="logo">budget<em>.</em></div>
+  <div class="logo">Budget <span>Tracker</span></div>
   <div class="month-nav">
     <button onclick="changeMonth(-1)">‹</button>
     <div class="month-label" id="monthLabel"></div>
     <button onclick="changeMonth(1)">›</button>
   </div>
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="showTab('dashboard')">Dashboard</button>
-    <button class="tab-btn" onclick="showTab('plan')">Plan</button>
-    <button class="tab-btn" onclick="showTab('log')">Log Entry</button>
+    <button class="tab-btn active" onclick="showTab('dashboard',this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('plan',this)">Plan</button>
+    <button class="tab-btn" onclick="showTab('log',this)">Log</button>
   </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- OVERVIEW -->
 <div class="page active" id="tab-dashboard">
-  <div class="net-banner">
-    <div class="net-stat">
-      <div class="label">Net Balance</div>
-      <div class="value" id="net-balance">€0</div>
-      <div class="sub" id="net-sub">actual income − actual expenses</div>
+  <div class="summary-bar">
+    <div class="summary-card highlight">
+      <div class="s-label">Net Balance</div>
+      <div class="s-value" id="s-net">€0</div>
+      <div class="s-sub" id="s-net-sub">vs. planned €0</div>
     </div>
-    <div class="net-divider"></div>
-    <div class="net-stat">
-      <div class="label">Planned Balance</div>
-      <div class="value" id="planned-balance" style="font-size:22px">€0</div>
+    <div class="summary-card">
+      <div class="s-label">Total Income</div>
+      <div class="s-value" id="s-income">€0</div>
+      <div class="s-sub" id="s-income-sub">planned €0</div>
     </div>
-    <div class="net-divider"></div>
-    <div class="net-stat">
-      <div class="label">Total Income</div>
-      <div class="value" id="dash-income" style="font-size:22px">€0</div>
+    <div class="summary-card">
+      <div class="s-label">Total Expenses</div>
+      <div class="s-value" id="s-expenses">€0</div>
+      <div class="s-sub" id="s-expenses-sub">planned €0</div>
     </div>
-    <div class="net-divider"></div>
-    <div class="net-stat">
-      <div class="label">Total Expenses</div>
-      <div class="value" id="dash-expenses" style="font-size:22px">€0</div>
+    <div class="summary-card">
+      <div class="s-label">Remaining Budget</div>
+      <div class="s-value" id="s-remaining">€0</div>
+      <div class="s-sub" id="s-remaining-sub">of planned expenses</div>
     </div>
   </div>
-
   <div class="two-col">
-    <!-- INCOME COLUMN -->
     <div class="col-card">
-      <div class="col-header">
-        <div class="col-header-title income">↑ Income</div>
-        <div style="display:flex;gap:24px;align-items:center">
-          <div style="text-align:right">
-            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Planned</div>
-            <div class="col-header-total" id="col-income-planned">€0</div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Actual</div>
-            <div class="col-header-total" style="color:var(--green)" id="col-income-actual">€0</div>
-          </div>
+      <div class="col-head">
+        <div class="col-head-title income">Income</div>
+        <div class="col-totals">
+          <div class="col-total-item"><div class="tl">Planned</div><div class="tv" id="ch-inc-planned">€0</div></div>
+          <div class="col-total-item"><div class="tl">Actual</div><div class="tv" id="ch-inc-actual">€0</div></div>
         </div>
       </div>
-      <!-- header row labels -->
-      <div class="cat-row" style="background:#fafaf8">
-        <div class="cat-name" style="color:transparent">—</div>
-        <div class="col-hdr">Planned</div>
-        <div class="col-hdr">Actual</div>
-        <div class="col-hdr">Δ</div>
+      <div class="tbl-head">
+        <span>Item</span><span style="text-align:right">Planned</span><span style="text-align:right">Actual</span><span style="text-align:right">Δ</span>
       </div>
       <div id="income-body"></div>
     </div>
-
-    <!-- EXPENSE COLUMN -->
     <div class="col-card">
-      <div class="col-header">
-        <div class="col-header-title expense">↓ Expenses</div>
-        <div style="display:flex;gap:24px;align-items:center">
-          <div style="text-align:right">
-            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Planned</div>
-            <div class="col-header-total" id="col-exp-planned">€0</div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Actual</div>
-            <div class="col-header-total" style="color:var(--red)" id="col-exp-actual">€0</div>
-          </div>
+      <div class="col-head">
+        <div class="col-head-title expense">Expenses</div>
+        <div class="col-totals">
+          <div class="col-total-item"><div class="tl">Planned</div><div class="tv" id="ch-exp-planned">€0</div></div>
+          <div class="col-total-item"><div class="tl">Actual</div><div class="tv" id="ch-exp-actual">€0</div></div>
         </div>
       </div>
-      <div class="cat-row" style="background:#fafaf8">
-        <div class="cat-name" style="color:transparent">—</div>
-        <div class="col-hdr">Planned</div>
-        <div class="col-hdr">Actual</div>
-        <div class="col-hdr">Δ</div>
+      <div class="tbl-head">
+        <span>Item</span><span style="text-align:right">Planned</span><span style="text-align:right">Actual</span><span style="text-align:right">Δ</span>
       </div>
       <div id="expense-body"></div>
     </div>
@@ -384,34 +332,32 @@ body {
 
 <!-- PLAN -->
 <div class="page" id="tab-plan">
-  <p class="plan-intro">Set your expected income and expenses for <strong id="plan-month-label"></strong>. These become your budget targets to track against.</p>
+  <p class="plan-intro">Set your expected income and expenses for <strong id="plan-month-lbl"></strong>. These become your monthly budget targets.</p>
   <div class="plan-grid">
-    <!-- Income plan -->
     <div class="plan-card">
-      <div class="plan-card-header income">
-        ↑ Expected Income
-        <span style="font-size:13px;color:var(--muted);font-family:'Instrument Sans'" id="plan-income-total">€0 planned</span>
+      <div class="plan-card-head">
+        <div class="plan-card-head-title income">Expected Income</div>
+        <div class="plan-card-head-total" id="plan-inc-total">€0</div>
       </div>
       <div id="plan-income-list"></div>
-      <div class="add-plan-row">
-        <input class="name" id="pi-desc" placeholder="Description (e.g. Salary)" />
+      <div class="add-row">
+        <input class="inp-desc" id="pi-desc" placeholder="e.g. Monthly salary"/>
         <select id="pi-cat">
           <option value="Salary">Salary</option>
-          <option value="Other Income">Other Income</option>
+          <option value="Other Income">Other</option>
         </select>
-        <input class="amt" id="pi-amt" type="number" placeholder="€" min="0"/>
-        <button class="btn-sm" onclick="addPlanItem('income')">+ Add</button>
+        <input class="inp-amt" id="pi-amt" type="number" placeholder="€0" min="0"/>
+        <button class="btn-add" onclick="addPlanItem('income')">Add</button>
       </div>
     </div>
-    <!-- Expense plan -->
     <div class="plan-card">
-      <div class="plan-card-header expense">
-        ↓ Expected Expenses
-        <span style="font-size:13px;color:var(--muted);font-family:'Instrument Sans'" id="plan-expense-total">€0 planned</span>
+      <div class="plan-card-head">
+        <div class="plan-card-head-title expense">Expected Expenses</div>
+        <div class="plan-card-head-total" id="plan-exp-total">€0</div>
       </div>
       <div id="plan-expense-list"></div>
-      <div class="add-plan-row">
-        <input class="name" id="pe-desc" placeholder="Description (e.g. Rent)" />
+      <div class="add-row">
+        <input class="inp-desc" id="pe-desc" placeholder="e.g. Rent"/>
         <select id="pe-cat">
           <option value="Food">Food</option>
           <option value="Utilities">Utilities</option>
@@ -419,17 +365,17 @@ body {
           <option value="Trips">Trips</option>
           <option value="Other">Other</option>
         </select>
-        <input class="amt" id="pe-amt" type="number" placeholder="€" min="0"/>
-        <button class="btn-sm" onclick="addPlanItem('expense')">+ Add</button>
+        <input class="inp-amt" id="pe-amt" type="number" placeholder="€0" min="0"/>
+        <button class="btn-add" onclick="addPlanItem('expense')">Add</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- LOG ENTRY -->
+<!-- LOG -->
 <div class="page" id="tab-log">
   <div class="log-form">
-    <div class="field desc">
+    <div class="field f-desc">
       <label>Description</label>
       <input type="text" id="log-desc" placeholder="e.g. Lidl grocery run"/>
     </div>
@@ -442,7 +388,7 @@ body {
     </div>
     <div class="field">
       <label>Category</label>
-      <select id="log-cat"></select>
+      <select id="log-cat" onchange="updateLogItems()"></select>
     </div>
     <div class="field">
       <label>Budget item</label>
@@ -456,12 +402,11 @@ body {
       <label>Date</label>
       <input type="date" id="log-date"/>
     </div>
-    <button class="btn-sm" style="padding:10px 22px;font-size:14px" onclick="addLog()">Log it →</button>
+    <button class="btn-add" style="padding:7px 18px;font-size:13px" onclick="addLog()">Log entry</button>
   </div>
-
-  <div class="log-history">
-    <div class="log-header">
-      <span>Date</span><span>Description</span><span>Category / Item</span><span>Amount</span><span>Type</span><span></span>
+  <div class="log-table">
+    <div class="log-table-head">
+      <span>Date</span><span>Description</span><span>Category · Item</span><span>Amount</span><span>Type</span><span></span>
     </div>
     <div id="log-list"></div>
   </div>
@@ -470,25 +415,19 @@ body {
 <div class="toast" id="toast"></div>
 
 <script>
-// ── STATE ────────────────────────────────────────────────────────
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-let currentYear  = new Date().getFullYear();
+let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
-
-// data shape: { [YYYY-MM]: { plan: { income: [], expense: [] }, logs: [] } }
-let data = JSON.parse(localStorage.getItem('budgetapp_v2') || '{}');
+let data = JSON.parse(localStorage.getItem('budgetapp_v3') || '{}');
 
 function key() { return `${currentYear}-${String(currentMonth+1).padStart(2,'0')}`; }
-
 function getMonth() {
   if (!data[key()]) data[key()] = { plan: { income: [], expense: [] }, logs: [] };
   return data[key()];
 }
+function save() { localStorage.setItem('budgetapp_v3', JSON.stringify(data)); }
+function fmt(n) { return '€' + Math.abs(n).toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2}); }
 
-function save() { localStorage.setItem('budgetapp_v2', JSON.stringify(data)); }
-
-// ── NAV ──────────────────────────────────────────────────────────
 function changeMonth(d) {
   currentMonth += d;
   if (currentMonth > 11) { currentMonth = 0; currentYear++; }
@@ -496,11 +435,11 @@ function changeMonth(d) {
   renderAll();
 }
 
-function showTab(id) {
+function showTab(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
   renderAll();
 }
 
@@ -508,24 +447,24 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ── PLAN ─────────────────────────────────────────────────────────
+// PLAN
 function addPlanItem(type) {
-  const descId = type === 'income' ? 'pi-desc' : 'pe-desc';
-  const catId  = type === 'income' ? 'pi-cat'  : 'pe-cat';
-  const amtId  = type === 'income' ? 'pi-amt'  : 'pe-amt';
-  const desc = document.getElementById(descId).value.trim();
-  const cat  = document.getElementById(catId).value;
-  const amt  = parseFloat(document.getElementById(amtId).value);
-  if (!desc || !amt || amt <= 0) { showToast('Fill in all fields'); return; }
+  const dId = type === 'income' ? 'pi-desc' : 'pe-desc';
+  const cId = type === 'income' ? 'pi-cat'  : 'pe-cat';
+  const aId = type === 'income' ? 'pi-amt'  : 'pe-amt';
+  const desc = document.getElementById(dId).value.trim();
+  const cat  = document.getElementById(cId).value;
+  const amt  = parseFloat(document.getElementById(aId).value);
+  if (!desc || !amt || amt <= 0) { showToast('Please fill in all fields'); return; }
   getMonth().plan[type].push({ id: Date.now(), desc, cat, amt });
   save();
-  document.getElementById(descId).value = '';
-  document.getElementById(amtId).value = '';
+  document.getElementById(dId).value = '';
+  document.getElementById(aId).value = '';
   renderAll();
-  showToast('✓ Budget item added');
+  showToast('Item added');
 }
 
 function deletePlanItem(type, id) {
@@ -540,52 +479,40 @@ function updatePlanAmt(type, id, val) {
 
 function renderPlan() {
   const m = getMonth();
-  document.getElementById('plan-month-label').textContent = MONTHS[currentMonth] + ' ' + currentYear;
-
+  document.getElementById('plan-month-lbl').textContent = MONTHS[currentMonth] + ' ' + currentYear;
   ['income','expense'].forEach(type => {
-    const listId = type === 'income' ? 'plan-income-list' : 'plan-expense-list';
-    const totalId = type === 'income' ? 'plan-income-total' : 'plan-expense-total';
     const items = m.plan[type];
     const total = items.reduce((s,i) => s+i.amt, 0);
-    document.getElementById(totalId).textContent = '€' + total.toFixed(2) + ' planned';
-
-    const el = document.getElementById(listId);
-    el.innerHTML = items.length === 0
-      ? `<div class="empty">No items yet — add one below</div>`
+    document.getElementById(type === 'income' ? 'plan-inc-total' : 'plan-exp-total').textContent = fmt(total);
+    const el = document.getElementById(`plan-${type}-list`);
+    el.innerHTML = !items.length
+      ? `<div class="empty-state">No items yet — add one below</div>`
       : items.map(i => `
         <div class="plan-item">
           <div class="plan-item-name">${i.desc}</div>
-          <div class="plan-cat-tag">${i.cat}</div>
-          <input class="plan-item-input" type="number" value="${i.amt.toFixed(2)}"
+          <div class="plan-cat-pill">${i.cat}</div>
+          <input class="plan-amt-input" type="number" value="${i.amt.toFixed(2)}"
             onchange="updatePlanAmt('${type}',${i.id},this.value)" min="0"/>
           <button class="btn-del" onclick="deletePlanItem('${type}',${i.id})">✕</button>
         </div>`).join('');
   });
 }
 
-// ── LOG ───────────────────────────────────────────────────────────
+// LOG
 function updateLogCats() {
   const type = document.getElementById('log-type').value;
-  const m = getMonth();
-  const catSel = document.getElementById('log-cat');
-  const itemSel = document.getElementById('log-item');
-
-  const cats = [...new Set(m.plan[type].map(i => i.cat))];
-  catSel.innerHTML = cats.length
+  const cats = [...new Set(getMonth().plan[type].map(i => i.cat))];
+  document.getElementById('log-cat').innerHTML = cats.length
     ? cats.map(c => `<option>${c}</option>`).join('')
-    : `<option value="">— no plan items —</option>`;
-
-  catSel.onchange = () => updateLogItems();
+    : `<option value="">— add plan items first —</option>`;
   updateLogItems();
 }
 
 function updateLogItems() {
   const type = document.getElementById('log-type').value;
   const cat  = document.getElementById('log-cat').value;
-  const m = getMonth();
-  const items = m.plan[type].filter(i => i.cat === cat);
-  const itemSel = document.getElementById('log-item');
-  itemSel.innerHTML = items.length
+  const items = getMonth().plan[type].filter(i => i.cat === cat);
+  document.getElementById('log-item').innerHTML = items.length
     ? items.map(i => `<option value="${i.id}">${i.desc}</option>`).join('')
     : `<option value="">— no items —</option>`;
 }
@@ -597,18 +524,14 @@ function addLog() {
   const itemId = parseInt(document.getElementById('log-item').value) || null;
   const amt    = parseFloat(document.getElementById('log-amt').value);
   const date   = document.getElementById('log-date').value;
-  if (!desc || !amt || !date) { showToast('Fill in all fields'); return; }
-
-  // find item name
+  if (!desc || !amt || !date) { showToast('Please fill in all fields'); return; }
   const planItem = getMonth().plan[type].find(i => i.id === itemId);
-  const itemName = planItem ? planItem.desc : '—';
-
-  getMonth().logs.push({ id: Date.now(), desc, type, cat, itemId, itemName, amt, date });
+  getMonth().logs.push({ id: Date.now(), desc, type, cat, itemId, itemName: planItem?.desc || '—', amt, date });
   save();
   document.getElementById('log-desc').value = '';
   document.getElementById('log-amt').value = '';
   renderAll();
-  showToast('✓ Entry logged');
+  showToast('Entry logged');
 }
 
 function deleteLog(id) {
@@ -620,150 +543,125 @@ function renderLog() {
   updateLogCats();
   const logs = getMonth().logs.slice().sort((a,b) => new Date(b.date)-new Date(a.date));
   const el = document.getElementById('log-list');
-  if (!logs.length) { el.innerHTML = '<div class="empty">No entries yet this month</div>'; return; }
+  if (!logs.length) { el.innerHTML = '<div class="empty-state">No entries this month</div>'; return; }
   el.innerHTML = logs.map(l => {
-    const d = new Date(l.date);
-    const ds = d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+    const ds = new Date(l.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
     return `<div class="log-row">
-      <span style="color:var(--muted);font-size:13px">${ds}</span>
-      <span>${l.desc}</span>
-      <span style="font-size:13px;color:var(--muted)">${l.cat} / ${l.itemName}</span>
-      <span class="log-amt ${l.type}">${l.type==='income'?'+':'-'}€${l.amt.toFixed(2)}</span>
-      <span><span class="type-badge type-${l.type}">${l.type}</span></span>
-      <span><button class="btn-del" onclick="deleteLog(${l.id})">✕</button></span>
+      <span class="log-date">${ds}</span>
+      <span class="log-desc">${l.desc}</span>
+      <span class="log-cat">${l.cat} · ${l.itemName}</span>
+      <span class="log-amt ${l.type}">${l.type==='income'?'+':'-'}${fmt(l.amt)}</span>
+      <span><span class="type-pill tp-${l.type}">${l.type}</span></span>
+      <button class="btn-del" onclick="deleteLog(${l.id})">✕</button>
     </div>`;
   }).join('');
 }
 
-// ── DASHBOARD ─────────────────────────────────────────────────────
-function fmt(n) { return '€' + Math.abs(n).toFixed(2); }
+// DASHBOARD
+function deltaTag(delta, planned) {
+  if (planned === 0) return `<span class="delta d-zero">—</span>`;
+  if (Math.abs(delta) < 0.01) return `<span class="delta d-zero">On track</span>`;
+  if (delta > 0) return `<span class="delta d-good">+${fmt(delta)}</span>`;
+  return `<span class="delta ${Math.abs(delta)/planned > 0.15 ? 'd-bad' : 'd-warn'}">${fmt(delta)}</span>`;
+}
 
 function renderDashboard() {
   const m = getMonth();
-  const logs = m.logs;
-
-  // Sum actuals per plan item
   const actualByItem = {};
-  logs.forEach(l => {
-    if (l.itemId) actualByItem[l.itemId] = (actualByItem[l.itemId]||0) + l.amt;
-  });
+  m.logs.forEach(l => { if (l.itemId) actualByItem[l.itemId] = (actualByItem[l.itemId]||0) + l.amt; });
 
-  // Totals
-  const totalIncomePlanned  = m.plan.income.reduce((s,i)=>s+i.amt,0);
-  const totalExpensePlanned = m.plan.expense.reduce((s,i)=>s+i.amt,0);
-  const totalIncomeActual   = logs.filter(l=>l.type==='income').reduce((s,l)=>s+l.amt,0);
-  const totalExpenseActual  = logs.filter(l=>l.type==='expense').reduce((s,l)=>s+l.amt,0);
+  const incPlanned = m.plan.income.reduce((s,i)=>s+i.amt,0);
+  const expPlanned = m.plan.expense.reduce((s,i)=>s+i.amt,0);
+  const incActual  = m.logs.filter(l=>l.type==='income').reduce((s,l)=>s+l.amt,0);
+  const expActual  = m.logs.filter(l=>l.type==='expense').reduce((s,l)=>s+l.amt,0);
+  const netActual  = incActual - expActual;
+  const remaining  = expPlanned - expActual;
 
-  document.getElementById('net-balance').textContent     = (totalIncomeActual >= totalExpenseActual ? '+' : '-') + fmt(totalIncomeActual - totalExpenseActual);
-  document.getElementById('net-balance').style.color     = totalIncomeActual >= totalExpenseActual ? '#c9f55a' : '#ff9999';
-  document.getElementById('planned-balance').textContent = (totalIncomePlanned >= totalExpensePlanned ? '+' : '') + '€' + (totalIncomePlanned - totalExpensePlanned).toFixed(2);
-  document.getElementById('dash-income').textContent     = '+€' + totalIncomeActual.toFixed(2);
-  document.getElementById('dash-expenses').textContent   = '-€' + totalExpenseActual.toFixed(2);
-  document.getElementById('col-income-planned').textContent = '€' + totalIncomePlanned.toFixed(2);
-  document.getElementById('col-income-actual').textContent  = '€' + totalIncomeActual.toFixed(2);
-  document.getElementById('col-exp-planned').textContent    = '€' + totalExpensePlanned.toFixed(2);
-  document.getElementById('col-exp-actual').textContent     = '€' + totalExpenseActual.toFixed(2);
+  document.getElementById('s-net').textContent          = (netActual>=0?'+':'') + '€' + netActual.toFixed(2);
+  document.getElementById('s-net').style.color          = netActual >= 0 ? 'inherit' : 'var(--red)';
+  document.getElementById('s-net-sub').textContent      = `vs. planned €${(incPlanned-expPlanned).toFixed(2)}`;
+  document.getElementById('s-income').textContent       = '€' + incActual.toFixed(2);
+  document.getElementById('s-income-sub').textContent   = `planned €${incPlanned.toFixed(2)}`;
+  document.getElementById('s-expenses').textContent     = '€' + expActual.toFixed(2);
+  document.getElementById('s-expenses-sub').textContent = `planned €${expPlanned.toFixed(2)}`;
+  document.getElementById('s-remaining').textContent    = (remaining>=0?'':'−') + fmt(remaining);
+  document.getElementById('s-remaining').style.color    = remaining >= 0 ? 'inherit' : 'var(--red)';
+  document.getElementById('s-remaining-sub').textContent= remaining >= 0 ? 'left to spend' : 'over budget';
+  document.getElementById('ch-inc-planned').textContent = fmt(incPlanned);
+  document.getElementById('ch-inc-actual').textContent  = fmt(incActual);
+  document.getElementById('ch-exp-planned').textContent = fmt(expPlanned);
+  document.getElementById('ch-exp-actual').textContent  = fmt(expActual);
 
-  // Render a side (income or expense)
   function renderSide(type, containerId) {
     const items = m.plan[type];
-    const container = document.getElementById(containerId);
-
-    if (!items.length) {
-      container.innerHTML = `<div class="empty">No planned items — go to <strong>Plan</strong> to add them</div>`;
-      return;
-    }
-
-    // Group by category
+    const el = document.getElementById(containerId);
+    if (!items.length) { el.innerHTML = `<div class="empty-state">No planned items — go to <strong>Plan</strong> tab</div>`; return; }
     const cats = {};
-    items.forEach(i => { if (!cats[i.cat]) cats[i.cat] = []; cats[i.cat].push(i); });
-
+    items.forEach(i => { if (!cats[i.cat]) cats[i.cat]=[]; cats[i.cat].push(i); });
     let html = '';
     Object.entries(cats).forEach(([cat, catItems]) => {
       const catPlanned = catItems.reduce((s,i)=>s+i.amt,0);
       const catActual  = catItems.reduce((s,i)=>s+(actualByItem[i.id]||0),0);
-      const catDelta   = type === 'income' ? catActual - catPlanned : catPlanned - catActual;
-
-      html += `<div class="cat-section">
-        <div class="cat-row">
-          <div class="cat-name">${cat}</div>
-          <div class="col-hdr" style="text-align:right">${fmt(catPlanned)}</div>
-          <div class="col-hdr" style="text-align:right">${fmt(catActual)}</div>
-          <div class="col-hdr" style="text-align:right">${deltaTag(catDelta, catPlanned)}</div>
+      const catDelta   = type==='income' ? catActual-catPlanned : catPlanned-catActual;
+      html += `<div class="cat-block">
+        <div class="cat-label-row">
+          <div class="cat-label">${cat}</div>
+          <span>${fmt(catPlanned)}</span><span>${fmt(catActual)}</span>
+          <span>${deltaTag(catDelta, catPlanned)}</span>
         </div>`;
-
       catItems.forEach(item => {
-        const actual  = actualByItem[item.id] || 0;
-        const delta   = type === 'income' ? actual - item.amt : item.amt - actual;
-        html += `
-        <div class="line-item">
-          <div class="line-desc">${item.desc}</div>
-          <div class="line-budget">${fmt(item.amt)}</div>
+        const actual = actualByItem[item.id]||0;
+        const delta  = type==='income' ? actual-item.amt : item.amt-actual;
+        html += `<div class="line">
+          <div class="line-name">${item.desc}</div>
+          <div class="line-num">${fmt(item.amt)}</div>
           <div class="line-actual">${fmt(actual)}</div>
           <div>${deltaTag(delta, item.amt)}</div>
         </div>`;
       });
-
       html += `</div>`;
     });
-
-    container.innerHTML = html;
+    el.innerHTML = html;
   }
-
-  renderSide('income', 'income-body');
-  renderSide('expense', 'expense-body');
+  renderSide('income','income-body');
+  renderSide('expense','expense-body');
 }
 
-function deltaTag(delta, planned) {
-  if (planned === 0) return `<span class="line-delta delta-zero">—</span>`;
-  const pct = Math.round(Math.abs(delta) / planned * 100);
-  if (Math.abs(delta) < 0.01) return `<span class="line-delta delta-zero">On track</span>`;
-  if (delta > 0) return `<span class="line-delta delta-good">+${fmt(delta)}</span>`;
-  const cls = pct > 20 ? 'delta-bad' : 'delta-warn';
-  return `<span class="line-delta ${cls}">-${fmt(Math.abs(delta))}</span>`;
-}
-
-// ── RENDER ALL ────────────────────────────────────────────────────
 function renderAll() {
   document.getElementById('monthLabel').textContent = MONTHS[currentMonth] + ' ' + currentYear;
-  renderDashboard();
-  renderPlan();
-  renderLog();
+  renderDashboard(); renderPlan(); renderLog();
 }
 
-// ── INIT ──────────────────────────────────────────────────────────
+// INIT
 document.getElementById('log-date').value = new Date().toISOString().split('T')[0];
-
-// Seed demo data for current month if empty
-const mk = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}`;
+const mk = key();
 if (!data[mk]) {
   data[mk] = {
     plan: {
-      income: [
-        { id: 1, desc: 'Monthly salary', cat: 'Salary', amt: 3200 },
-        { id: 2, desc: 'Freelance project', cat: 'Other Income', amt: 400 },
+      income:  [
+        {id:1,desc:'Monthly salary',cat:'Salary',amt:3200},
+        {id:2,desc:'Freelance project',cat:'Other Income',amt:400}
       ],
       expense: [
-        { id: 3, desc: 'Rent', cat: 'Utilities', amt: 950 },
-        { id: 4, desc: 'Electricity & gas', cat: 'Utilities', amt: 120 },
-        { id: 5, desc: 'Groceries', cat: 'Food', amt: 300 },
-        { id: 6, desc: 'Restaurants', cat: 'Food', amt: 150 },
-        { id: 7, desc: 'Spotify', cat: 'Spotify', amt: 10.99 },
-        { id: 8, desc: 'Summer trip', cat: 'Trips', amt: 500 },
-        { id: 9, desc: 'Misc', cat: 'Other', amt: 100 },
+        {id:3,desc:'Rent',cat:'Utilities',amt:950},
+        {id:4,desc:'Electricity & gas',cat:'Utilities',amt:120},
+        {id:5,desc:'Groceries',cat:'Food',amt:300},
+        {id:6,desc:'Restaurants',cat:'Food',amt:150},
+        {id:7,desc:'Spotify',cat:'Spotify',amt:10.99},
+        {id:8,desc:'Summer trip',cat:'Trips',amt:500},
+        {id:9,desc:'Misc',cat:'Other',amt:100}
       ]
     },
     logs: [
-      { id: 101, desc: 'Salary deposit', type: 'income', cat: 'Salary', itemId: 1, itemName: 'Monthly salary', amt: 3200, date: `${mk}-01` },
-      { id: 102, desc: 'Lidl groceries', type: 'expense', cat: 'Food', itemId: 5, itemName: 'Groceries', amt: 87.40, date: `${mk}-03` },
-      { id: 103, desc: 'Rent payment', type: 'expense', cat: 'Utilities', itemId: 3, itemName: 'Rent', amt: 950, date: `${mk}-01` },
-      { id: 104, desc: 'Spotify charge', type: 'expense', cat: 'Spotify', itemId: 7, itemName: 'Spotify', amt: 10.99, date: `${mk}-05` },
-      { id: 105, desc: 'Dinner out', type: 'expense', cat: 'Food', itemId: 6, itemName: 'Restaurants', amt: 42, date: `${mk}-06` },
+      {id:101,desc:'Salary deposit',type:'income',cat:'Salary',itemId:1,itemName:'Monthly salary',amt:3200,date:`${mk}-01`},
+      {id:102,desc:'Lidl groceries',type:'expense',cat:'Food',itemId:5,itemName:'Groceries',amt:87.40,date:`${mk}-03`},
+      {id:103,desc:'Rent payment',type:'expense',cat:'Utilities',itemId:3,itemName:'Rent',amt:950,date:`${mk}-01`},
+      {id:104,desc:'Spotify charge',type:'expense',cat:'Spotify',itemId:7,itemName:'Spotify',amt:10.99,date:`${mk}-05`},
+      {id:105,desc:'Dinner out',type:'expense',cat:'Food',itemId:6,itemName:'Restaurants',amt:42,date:`${mk}-06`}
     ]
   };
   save();
 }
-
 renderAll();
 </script>
 </body>
